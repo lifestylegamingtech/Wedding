@@ -5,23 +5,28 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===============================
   const weddingDate = new Date(2028, 5, 29, 0, 0, 0).getTime(); // June = 5
 
-  const timer = document.getElementById("timer");
-  const scratchTimer = document.getElementById("scratchTimer");
+  const mainTimer = document.getElementById("timer");
+  const scratchTimers = document.querySelectorAll(".scratch-countdown");
 
   function updateCountdown() {
-    const now = new Date().getTime();
+    const now = Date.now();
     const distance = weddingDate - now;
 
+    let text;
     if (distance < 0) {
-      if (timer) timer.textContent = "Today is the day 💍";
-      if (scratchTimer) scratchTimer.textContent = "Today 💍";
-      return;
+      text = "Today 💍";
+    } else {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      text = `${days} days 💍`;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    if (mainTimer) {
+      mainTimer.textContent = text.replace("💍", "to go 💍");
+    }
 
-    if (timer) timer.textContent = `${days} days to go 💍`;
-    if (scratchTimer) scratchTimer.textContent = `${days} days 💍`;
+    scratchTimers.forEach(el => {
+      el.textContent = text;
+    });
   }
 
   updateCountdown();
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const ctx = canvas.getContext("2d");
     let scratching = false;
 
-    // Draw "coin"
+    // Draw coin layer
     ctx.fillStyle = "#d4c7a3";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -63,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       scratch(e.clientX - rect.left, e.clientY - rect.top);
     });
 
-    // Touch (mobile)
+    // Touch
     canvas.addEventListener("touchstart", () => scratching = true);
     canvas.addEventListener("touchend", () => scratching = false);
     canvas.addEventListener("touchmove", e => {
