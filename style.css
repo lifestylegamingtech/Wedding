@@ -51,3 +51,38 @@ footer {
   background: #f6f2ed;
   padding: 30px;
 }
+.scratch-section {
+  background: #fff;
+}
+
+.scratch-card {
+  position: relative;
+  width: 300px;
+  height: 180px;
+  margin: 30px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.scratch-card canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.revealed {
+  position: absolute;
+  inset: 0;
+  background: #f6f2ed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+}
+
+.hint {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
