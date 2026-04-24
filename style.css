@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero {
+  height: 100vh;
+  background: #f6f2ed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+}
+
+.countdown {
+  background: #fff;
+}
+
+#timer {
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+form input, form select {
+  padding: 12px;
+  margin: 10px;
+  width: 240px;
+}
+
+button {
+  padding: 12px 32px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+footer {
+  background: #f6f2ed;
+  padding: 30px;
+}
