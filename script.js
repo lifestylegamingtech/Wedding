@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ===============================
-  // COUNTDOWN (29 June 2028)
-  // ===============================
+  // =====================
+  // COUNTDOWN
+  // =====================
   const weddingDate = new Date(2028, 5, 29).getTime();
 
   const mainTimer = document.getElementById("timer");
@@ -27,51 +27,48 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // ===============================
+  // =====================
   // CONFETTI
-  // ===============================
+  // =====================
   const confettiCanvas = document.getElementById("confettiCanvas");
   const cctx = confettiCanvas.getContext("2d");
 
-  confettiCanvas.width = window.innerWidth;
-  confettiCanvas.height = window.innerHeight;
+  function resizeConfetti() {
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+  }
+  resizeConfetti();
+  window.addEventListener("resize", resizeConfetti);
 
   function fireConfetti() {
-    const pieces = 120;
-    const confetti = [];
-
-    for (let i = 0; i < pieces; i++) {
-      confetti.push({
-        x: Math.random() * confettiCanvas.width,
-        y: Math.random() * -confettiCanvas.height,
-        size: Math.random() * 6 + 4,
-        speed: Math.random() * 3 + 2,
-        color: ["#d4af37", "#fff3c4", "#ffffff"][
-          Math.floor(Math.random() * 3)
-        ]
-      });
-    }
+    const particles = Array.from({ length: 120 }, () => ({
+      x: Math.random() * confettiCanvas.width,
+      y: Math.random() * -confettiCanvas.height,
+      size: Math.random() * 6 + 4,
+      speed: Math.random() * 3 + 2,
+      color: ["#d4af37", "#fff3c4", "#ffffff"][Math.floor(Math.random() * 3)]
+    }));
 
     let frame = 0;
     function animate() {
       cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-      confetti.forEach(p => {
+      particles.forEach(p => {
         cctx.fillStyle = p.color;
         cctx.fillRect(p.x, p.y, p.size, p.size);
         p.y += p.speed;
       });
-      frame++;
-      if (frame < 120) requestAnimationFrame(animate);
+      if (++frame < 120) requestAnimationFrame(animate);
     }
     animate();
   }
 
-  // ===============================
-  // SCRATCH + CONFETTI
-  // ===============================
+  // =====================
+  // SCRATCH CARDS
+  // =====================
   document.querySelectorAll(".scratch-card").forEach(card => {
     const canvas = card.querySelector(".scratchCanvas");
     const ctx = canvas.getContext("2d");
+
     let scratching = false;
     let revealed = false;
 
