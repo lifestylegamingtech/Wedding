@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Tayedzerwa Wedding 2028</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
 <section class="hero">
@@ -14,11 +15,11 @@
   <span>29 June 2028</span>
 </section>
 
-<<section class="scratch-section">
+<section class="scratch-section">
   <h2>Scratch to reveal 💍</h2>
 
-  <!-- Ceremony card -->
-  <div class="scratch-card" data-label="Ceremony">
+  <!-- Ceremony -->
+  <div class="scratch-card">
     <div class="revealed">
       <p><strong>Ceremony</strong></p>
       <p>2:00 PM</p>
@@ -27,21 +28,20 @@
     <canvas class="scratchCanvas" width="300" height="180"></canvas>
   </div>
 
-  <!-- Countdown card -->
-  <div class="scratch-card" data-label="Countdown">
+  <!-- Countdown -->
+  <div class="scratch-card">
     <div class="revealed">
       <p><strong>Days to go</strong></p>
-      <p class="scratch-countdown">Loading…</p>
+      <p class="scratch-countdown"></p>
     </div>
     <canvas class="scratchCanvas" width="300" height="180"></canvas>
   </div>
 
-  <!-- Details card -->
-  <div class="scratch-card" data-label="Details">
+  <!-- Details -->
+  <div class="scratch-card">
     <div class="revealed">
       <p><strong>Dress code</strong></p>
       <p>Black tie optional</p>
-      <p>Dancing shoes required 🕺</p>
     </div>
     <canvas class="scratchCanvas" width="300" height="180"></canvas>
   </div>
@@ -54,35 +54,11 @@
   <div id="timer"></div>
 </section>
 
-<section class="story">
-  <h2>Our Story</h2>
-  <p>
-    From our first conversation to forever — we can’t wait to celebrate
-    with the people we love most.
-  </p>
-</section>
-
-<section class="details">
-  <h2>Wedding Details</h2>
-  <p><strong>Date:</strong> 29 June 2028</p>
-  <p><strong>Venue:</strong> The William Cecil, Stamford</p>
-</section>
-
-<section class="rsvp">
-  <h2>RSVP</h2>
-  <form>
-    <input type="text" placeholder="Your Name" required>
-    <select required>
-      <option>Will attend</option>
-      <option>Cannot attend</option>
-    </select>
-    <button type="submit">Send</button>
-  </form>
-</section>
-
 <footer>
   <p>With love ❤️</p>
 </footer>
+
+<canvas id="confettiCanvas"></canvas>
 
 <script src="script.js"></script>
 </body>
