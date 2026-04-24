@@ -1,10 +1,38 @@
-// ✅ MULTI SCRATCH CARD LOGIC
+// ===============================
+// COUNTDOWN (29 June 2028)
+// ===============================
+const weddingDate = new Date(2028, 5, 29, 0, 0, 0).getTime(); // June = 5
+
+const timer = document.getElementById("timer");
+const scratchTimer = document.getElementById("scratchTimer");
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const distance = weddingDate - now;
+
+  if (distance < 0) {
+    if (timer) timer.textContent = "Today is the day 💍";
+    if (scratchTimer) scratchTimer.textContent = "Today 💍";
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+  if (timer) timer.textContent = `${days} days to go 💍`;
+  if (scratchTimer) scratchTimer.textContent = `${days} days 💍`;
+}, 1000);
+
+
+
+// ===============================
+// MULTI SCRATCH CARD LOGIC
+// ===============================
 document.querySelectorAll(".scratch-card").forEach(card => {
   const canvas = card.querySelector(".scratchCanvas");
   const ctx = canvas.getContext("2d");
   let scratching = false;
 
-  // Draw "coin"
+  // Draw "coin" layer
   ctx.fillStyle = "#d4c7a3";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -29,7 +57,7 @@ document.querySelectorAll(".scratch-card").forEach(card => {
     scratch(e.clientX - rect.left, e.clientY - rect.top);
   });
 
-  // Touch
+  // Touch (mobile)
   canvas.addEventListener("touchstart", () => scratching = true);
   canvas.addEventListener("touchend", () => scratching = false);
   canvas.addEventListener("touchmove", e => {
