@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // COUNTDOWN
   // =====================
   const weddingDate = new Date(2028, 5, 29).getTime();
-
   const mainTimer = document.getElementById("timer");
   const scratchTimers = document.querySelectorAll(".scratch-countdown");
 
@@ -12,13 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = Date.now();
     const distance = weddingDate - now;
 
-    let text;
-    if (distance <= 0) {
-      text = "Today 💍";
-    } else {
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      text = `${days} days 💍`;
-    }
+    let text = distance <= 0
+      ? "Today 💍"
+      : `${Math.floor(distance / (1000 * 60 * 60 * 24))} days 💍`;
 
     if (mainTimer) mainTimer.textContent = text.replace("💍", "to go 💍");
     scratchTimers.forEach(el => el.textContent = text);
@@ -31,17 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // CONFETTI
   // =====================
   const confettiCanvas = document.getElementById("confettiCanvas");
-  const cctx = confettiCanvas.getContext("2d");
+  const ctxConfetti = confettiCanvas.getContext("2d");
 
   function resizeConfetti() {
-    confettiCanvas.width = window.innerWidth;
-    confettiCanvas.height = window.innerHeight;
+    confettiCanvas.width = innerWidth;
+    confettiCanvas.height = innerHeight;
   }
   resizeConfetti();
-  window.addEventListener("resize", resizeConfetti);
+  addEventListener("resize", resizeConfetti);
 
   function fireConfetti() {
-    const particles = Array.from({ length: 120 }, () => ({
+    const pieces = Array.from({ length: 120 }, () => ({
       x: Math.random() * confettiCanvas.width,
       y: Math.random() * -confettiCanvas.height,
       size: Math.random() * 6 + 4,
@@ -51,10 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let frame = 0;
     function animate() {
-      cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-      particles.forEach(p => {
-        cctx.fillStyle = p.color;
-        cctx.fillRect(p.x, p.y, p.size, p.size);
+      ctxConfetti.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      pieces.forEach(p => {
+        ctxConfetti.fillStyle = p.color;
+        ctxConfetti.fillRect(p.x, p.y, p.size, p.size);
         p.y += p.speed;
       });
       if (++frame < 120) requestAnimationFrame(animate);
@@ -68,9 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".scratch-card").forEach(card => {
     const canvas = card.querySelector(".scratchCanvas");
     const ctx = canvas.getContext("2d");
+    const revealed = card.querySelector(".revealed");
 
     let scratching = false;
-    let revealed = false;
+    let complete = false;
 
     ctx.fillStyle = "#d4c7a3";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -84,24 +80,25 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.beginPath();
       ctx.arc(x, y, 22, 0, Math.PI * 2);
       ctx.fill();
-      checkReveal();
+      check();
     }
 
-    function checkReveal() {
-      if (revealed) return;
+    function check() {
+      if (complete) return;
       const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       let cleared = 0;
-      for (let i = 3; i < data.length; i += 4) {
+      for (let i = 3; i < data.length; i += 4)
         if (data[i] === 0) cleared++;
-      }
+
       if (cleared / (data.length / 4) > 0.6) {
-        revealed = true;
+        complete = true;
+        revealed.classList.add("show");
         fireConfetti();
       }
     }
 
     canvas.addEventListener("mousedown", () => scratching = true);
-    window.addEventListener("mouseup", () => scratching = false);
+    addEventListener("mouseup", () => scratching = false);
     canvas.addEventListener("mousemove", e => {
       if (!scratching) return;
       const r = canvas.getBoundingClientRect();
