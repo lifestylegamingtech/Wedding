@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap');@import url('https://fonts.googleapis.com/css2?family=Playfair+Display', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
   color: #333;
 }
 
@@ -22,7 +26,6 @@ section {
 
 #timer {
   font-size: 1.6rem;
-  margin-top: 20px;
 }
 
 /* Scratch cards */
@@ -34,13 +37,14 @@ section {
   margin: 30px auto;
   border-radius: 14px;
   overflow: hidden;
+  background: #f6f2ed;
   box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
 .revealed {
   position: absolute;
   inset: 0;
-  background: #f6f2ed;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,7 +55,8 @@ section {
 canvas.scratchCanvas {
   position: absolute;
   inset: 0;
-  cursor: pointer;
+  z-index: 2;
+  touch-action: none;
 }
 
 .hint {
@@ -66,5 +71,10 @@ canvas.scratchCanvas {
   z-index: 9999;
 }
 
-body {
-  margin: 0;
+/* Mobile safety */
+
+@media (max-width: 480px) {
+  .scratch-card {
+    width: 90%;
+  }
+}
