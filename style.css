@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap');@import url('https://fonts.googleapis.com/css2?family=Playfair+Display', sans-serif;
   color: #333;
 }
 
@@ -25,31 +21,11 @@ section {
 }
 
 #timer {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-top: 20px;
 }
 
-footer {
-  background: #f6f2ed;
-  padding: 30px;
-}
-
-form input,
-form select {
-  padding: 12px;
-  margin: 10px;
-  width: 240px;
-}
-
-button {
-  padding: 12px 32px;
-  background: black;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-/* Scratch card */
+/* Scratch cards */
 
 .scratch-card {
   position: relative;
@@ -58,7 +34,7 @@ button {
   margin: 30px auto;
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
 .revealed {
@@ -72,7 +48,7 @@ button {
   font-family: 'Playfair Display', serif;
 }
 
-canvas {
+canvas.scratchCanvas {
   position: absolute;
   inset: 0;
   cursor: pointer;
@@ -82,3 +58,13 @@ canvas {
   opacity: 0.6;
   font-size: 0.9rem;
 }
+
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+body {
+  margin: 0;
