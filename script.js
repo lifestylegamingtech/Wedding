@@ -1,60 +1,42 @@
-// Countdown
-const weddingDate = new Date(2028, 5, 29, 0, 0, 0).getTime();
-// NOTE: months are zero-based (June = 5)
+// ✅ MULTI SCRATCH CARD LOGIC
+document.querySelectorAll(".scratch-card").forEach(card => {
+  const canvas = card.querySelector(".scratchCanvas");
+  const ctx = canvas.getContext("2d");
+  let scratching = false;
 
-const timer = document.getElementById("timer");
+  // Draw "coin"
+  ctx.fillStyle = "#d4c7a3";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const distance = weddingDate - now;
+  ctx.fillStyle = "#6b5e3d";
+  ctx.font = "18px sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("Scratch here", canvas.width / 2, canvas.height / 2);
 
-  if (distance < 0) {
-    timer.textContent = "Today is the day 💍";
-    return;
+  function scratch(x, y) {
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.beginPath();
+    ctx.arc(x, y, 22, 0, Math.PI * 2);
+    ctx.fill();
   }
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  timer.textContent = `${days} days to go 💍`;
-}, 1000);
+  // Mouse
+  canvas.addEventListener("mousedown", () => scratching = true);
+  window.addEventListener("mouseup", () => scratching = false);
+  canvas.addEventListener("mousemove", e => {
+    if (!scratching) return;
+    const rect = canvas.getBoundingClientRect();
+    scratch(e.clientX - rect.left, e.clientY - rect.top);
+  });
 
-// Scratch card
-const canvas = document.getElementById("scratchCanvas");
-const ctx = canvas.getContext("2d");
-
-let scratching = false;
-
-// Draw coin layer
-ctx.fillStyle = "#d4c7a3";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-ctx.fillStyle = "#6b5e3d";
-ctx.font = "20px sans-serif";
-ctx.textAlign = "center";
-ctx.fillText("Scratch here", canvas.width / 2, canvas.height / 2);
-
-function scratch(x, y) {
-  ctx.globalCompositeOperation = "destination-out";
-  ctx.beginPath();
-  ctx.arc(x, y, 20, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-// Mouse
-canvas.addEventListener("mousedown", () => scratching = true);
-canvas.addEventListener("mouseup", () => scratching = false);
-canvas.addEventListener("mousemove", e => {
-  if (!scratching) return;
-  const rect = canvas.getBoundingClientRect();
-  scratch(e.clientX - rect.left, e.clientY - rect.top);
+  // Touch
+  canvas.addEventListener("touchstart", () => scratching = true);
+  canvas.addEventListener("touchend", () => scratching = false);
+  canvas.addEventListener("touchmove", e => {
+    e.preventDefault();
+    if (!scratching) return;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    scratch(touch.clientX - rect.left, touch.clientY - rect.top);
+  });
 });
-
-// Touch (mobile)
-canvas.addEventListener("touchstart", () => scratching = true);
-canvas.addEventListener("touchend", () => scratching = false);
-canvas.addEventListener("touchmove", e => {
-  e.preventDefault();
-  if (!scratching) return;
-  const rect = canvas.getBoundingClientRect();
-  const touch = e.touches[0];
-  scratch(touch.clientX - rect.left, touch.clientY - rect.top);
-});
-``
