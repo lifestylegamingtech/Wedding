@@ -1,10 +1,18 @@
 // Countdown
-const weddingDate = new Date("June 29, 2028").getTime();
+const weddingDate = new Date(2028, 5, 29, 0, 0, 0).getTime();
+// NOTE: months are zero-based (June = 5)
+
 const timer = document.getElementById("timer");
 
 setInterval(() => {
   const now = new Date().getTime();
   const distance = weddingDate - now;
+
+  if (distance < 0) {
+    timer.textContent = "Today is the day 💍";
+    return;
+  }
+
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
   timer.textContent = `${days} days to go 💍`;
 }, 1000);
