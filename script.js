@@ -1,38 +1,36 @@
-const weddingDate = new Date("August 12, 2026").getTime();
+// Countdown
+const weddingDate = new Date("June 29, 2028").getTime();
 const timer = document.getElementById("timer");
 
 setInterval(() => {
   const now = new Date().getTime();
   const distance = weddingDate - now;
-
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-
-  timer.innerHTML = `${days} days to go 💍`;
+  timer.textContent = `${days} days to go 💍`;
 }, 1000);
+
+// Scratch card
 const canvas = document.getElementById("scratchCanvas");
 const ctx = canvas.getContext("2d");
 
 let scratching = false;
 
-// Fill canvas with "coin" color
-ctx.fillStyle = "#cfc6b8";
+// Draw coin layer
+ctx.fillStyle = "#d4c7a3";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-// Add text hint on coin
-ctx.fillStyle = "#555";
+ctx.fillStyle = "#6b5e3d";
 ctx.font = "20px sans-serif";
 ctx.textAlign = "center";
-ctx.fillText("Scratch Here", canvas.width / 2, canvas.height / 2);
+ctx.fillText("Scratch here", canvas.width / 2, canvas.height / 2);
 
-// Core scratch function
 function scratch(x, y) {
   ctx.globalCompositeOperation = "destination-out";
   ctx.beginPath();
-  ctx.arc(x, y, 18, 0, Math.PI * 2);
+  ctx.arc(x, y, 20, 0, Math.PI * 2);
   ctx.fill();
 }
 
-// Mouse support
+// Mouse
 canvas.addEventListener("mousedown", () => scratching = true);
 canvas.addEventListener("mouseup", () => scratching = false);
 canvas.addEventListener("mousemove", e => {
@@ -41,7 +39,7 @@ canvas.addEventListener("mousemove", e => {
   scratch(e.clientX - rect.left, e.clientY - rect.top);
 });
 
-// Touch support (mobile)
+// Touch (mobile)
 canvas.addEventListener("touchstart", () => scratching = true);
 canvas.addEventListener("touchend", () => scratching = false);
 canvas.addEventListener("touchmove", e => {
@@ -51,3 +49,4 @@ canvas.addEventListener("touchmove", e => {
   const touch = e.touches[0];
   scratch(touch.clientX - rect.left, touch.clientY - rect.top);
 });
+``
